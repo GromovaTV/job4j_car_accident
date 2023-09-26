@@ -11,17 +11,25 @@
     <thead>
     <tr>
         <th scope="col">#</th>
-        <th scope="col">ФИО</th>
+        <th scope="col">Name</th>
+        <th scope="col">Text</th>
+        <th scope="col">Address</th>
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${users}" var="u" varStatus="status">
+    <c:forEach items="${accidents}" var="a" varStatus="status">
         <tr>
             <td>
                 <c:out value="${status.index + 1}"/>
             </td>
             <td>
-                <c:out value="${u}"/>
+                <c:out value="${a.name}"/>
+            </td>
+            <td>
+                <c:out value="${a.text}"/>
+            </td>
+            <td>
+                <c:out value="${a.address}"/>
             </td>
         </tr>
     </c:forEach>
