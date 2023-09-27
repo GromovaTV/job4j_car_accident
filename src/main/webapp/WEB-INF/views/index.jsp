@@ -18,6 +18,7 @@
         <th scope="col">Type</th>
         <th scope="col">Text</th>
         <th scope="col">Address</th>
+        <th scope="col">Rules</th>
     </tr>
     </thead>
     <tbody>
@@ -42,6 +43,11 @@
             </td>
             <td>
                 <c:out value="${a.address}"/>
+            </td>
+            <td>
+                <c:forEach var="rule" items="${a.rules}" >
+                    <option value="${rule.id}">${rule.name}</option>
+                </c:forEach>
             </td>
         </tr>
     </c:forEach>

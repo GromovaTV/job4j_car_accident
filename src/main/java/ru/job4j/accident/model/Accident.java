@@ -1,6 +1,7 @@
 package ru.job4j.accident.model;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class Accident {
     private int id;
@@ -8,13 +9,16 @@ public class Accident {
     private String text;
     private String address;
     private AccidentType type;
+    private Set<Rule> rules;
 
-    public static Accident of(String name, String text, String address, AccidentType type) {
+    public static Accident of(String name, String text, String address,
+                              AccidentType type, Set<Rule> rules) {
         Accident accident = new Accident();
         accident.name = name;
         accident.text = text;
         accident.address = address;
         accident.type = type;
+        accident.rules = rules;
         return accident;
     }
 
@@ -58,6 +62,14 @@ public class Accident {
         this.type = type;
     }
 
+    public Set<Rule> getRules() {
+        return rules;
+    }
+
+    public void setRules(Set<Rule> rules) {
+        this.rules = rules;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,12 +79,13 @@ public class Accident {
                 Objects.equals(name, accident.name) &&
                 Objects.equals(text, accident.text) &&
                 Objects.equals(address, accident.address) &&
-                Objects.equals(type, accident.type);
+                Objects.equals(type, accident.type) &&
+                Objects.equals(rules, accident.rules);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, text, address, type);
+        return Objects.hash(id, name, text, address, type, rules);
     }
 
     @Override
@@ -83,6 +96,7 @@ public class Accident {
                 + ", text='" + text + '\''
                 + ", address='" + address + '\''
                 + ", type='" + type + '\''
+                + ", rules='" + rules + '\''
                 + '}';
     }
 }
