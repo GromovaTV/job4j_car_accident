@@ -15,6 +15,7 @@
         <th scope="col">Edit</th>
         <th scope="col">id</th>
         <th scope="col">Name</th>
+        <th scope="col">Type</th>
         <th scope="col">Text</th>
         <th scope="col">Address</th>
     </tr>
@@ -32,6 +33,9 @@
             </td>
             <td>
                 <c:out value="${a.name}"/>
+            </td>
+            <td>
+                <c:out value="${a.type.name}"/>
             </td>
             <td>
                 <c:out value="${a.text}"/>

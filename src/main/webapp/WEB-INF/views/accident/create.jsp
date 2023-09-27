@@ -9,6 +9,15 @@
             <td><input type='text' name='name'></td>
         </tr>
         <tr>
+            <td>Тип:</td>
+            <td>
+                <select name="type_id">
+                    <c:forEach var="type" items="${types}" >
+                        <option value="${type.id}">${type.name}</option>
+                    </c:forEach>
+                </select>
+        </tr>
+        <tr>
             <td>Причина:</td>
             <td><input type='text' name='text'></td>
         </tr>
