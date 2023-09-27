@@ -4,23 +4,31 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Accident</title>
 </head>
 <body>
+<a href="<c:url value='/create'/>">Добавить инцидент</a>
 <table class="table">
     <thead>
     <tr>
-        <th scope="col">#</th>
+        <th scope="col">Edit</th>
+        <th scope="col">id</th>
         <th scope="col">Name</th>
         <th scope="col">Text</th>
         <th scope="col">Address</th>
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${accidents}" var="a" varStatus="status">
+    <c:forEach items="${accidents}" var="a">
         <tr>
             <td>
-                <c:out value="${status.index + 1}"/>
+                <a href="<c:url value='/edit?id=${a.id}'/>">
+                    <i class="fa fa-edit mr-3"></i>
+                </a>
+            </td>
+            <td>
+                <c:out value="${a.id}"/>
             </td>
             <td>
                 <c:out value="${a.name}"/>

@@ -7,9 +7,14 @@ import ru.job4j.accident.service.AccidentService;
 
 @Controller
 public class IndexControl {
+    private final AccidentService service;
+
+    public IndexControl(AccidentService service) {
+        this.service = service;
+    }
+
     @GetMapping("/")
     public String index(Model model) {
-        AccidentService service = new AccidentService();
         model.addAttribute("accidents", service.getAll());
         return "index";
     }
