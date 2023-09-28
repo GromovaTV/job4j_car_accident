@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
-import ru.job4j.accident.repository.AccidentMem;
+import ru.job4j.accident.repository.AccidentJdbcTemplate;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Collection;
@@ -13,56 +13,58 @@ import java.util.stream.Collectors;
 
 @Service
 public class AccidentService {
-    private AccidentMem accidentMem;
+    private AccidentJdbcTemplate template;
 
-    public AccidentService(AccidentMem accidentMem) {
-        this.accidentMem = accidentMem;
+    public AccidentService(AccidentJdbcTemplate template) {
+        this.template = template;
     }
 
     public Collection<Accident> getAll() {
-        return accidentMem.getAll();
+        return template.getAll();
     }
 
     public Collection<AccidentType> getAllTypes() {
-        return accidentMem.getAllTypes();
+        return template.getAllTypes();
     }
 
     public Collection<Rule> getAllRules() {
-        return accidentMem.getAllRules();
+        return template.getAllRules();
     }
 
     public Accident get(int id) {
-        return accidentMem.get(id);
+        return template.get(id);
     }
 
     public AccidentType getType(int id) {
-        return accidentMem.getType(id);
+        return template.getType(id);
     }
 
     public Rule getRule(int id) {
-        return accidentMem.getRule(id);
+        return template.getRule(id);
     }
 
     public void save(Accident accident) {
-        accidentMem.save(accident);
+        template.save(accident);
     }
 
     public void save(Accident accident, HttpServletRequest req) {
         int id = Integer.parseInt(req.getParameter("type_id"));
-        accident.setType(accidentMem.getType(id));
+        accident.setType(template.getType(id));
         String[] ids = req.getParameterValues("rIds");
-        Set<Rule> rules = Arrays.stream(ids)
-                .map(i -> accidentMem.getRule(Integer.parseInt(i)))
-                .collect(Collectors.toSet());
-        accident.setRules(rules);
-        accidentMem.save(accident);
+        if (ids != null) {
+            Set<Rule> rules = Arrays.stream(ids)
+                    .map(i -> template.getRule(Integer.parseInt(i)))
+                    .collect(Collectors.toSet());
+            accident.setRules(rules);
+        }
+        template.save(accident);
     }
 
     public void saveType(AccidentType type) {
-        accidentMem.save(type);
+        template.save(type);
     }
 
     public void saveRule(Rule rule) {
-        accidentMem.save(rule);
+        template.save(rule);
     }
 }
