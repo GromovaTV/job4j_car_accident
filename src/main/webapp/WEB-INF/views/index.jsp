@@ -45,7 +45,7 @@
                 <c:out value="${a.address}"/>
             </td>
             <td>
-                <c:forEach var="rule" items="${a.rules}" >
+                <c:forEach items="${a.rules}" var="rule">
                     <option value="${rule.id}">${rule.name}</option>
                 </c:forEach>
             </td>
