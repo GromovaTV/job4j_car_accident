@@ -109,7 +109,7 @@ public class Accident {
                 + ", text='" + text + '\''
                 + ", address='" + address + '\''
                 + ", type='" + type + '\''
-                + ", rules='" + rules + '\''
+//                + ", rules='" + rules + '\''
                 + '}';
     }
 }
