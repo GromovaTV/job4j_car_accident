@@ -7,15 +7,21 @@ import java.util.Set;
 @Entity(name = "accident")
 @Table(name = "accident")
 public class Accident {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
+
     private String text;
+
     private String address;
+
     @ManyToOne
     @JoinColumn(name = "accident_type_id")
     private AccidentType type;
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "accident_rule",
@@ -85,15 +91,19 @@ public class Accident {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Accident accident = (Accident) o;
-        return id == accident.id &&
-                Objects.equals(name, accident.name) &&
-                Objects.equals(text, accident.text) &&
-                Objects.equals(address, accident.address) &&
-                Objects.equals(type, accident.type) &&
-                Objects.equals(rules, accident.rules);
+        return id == accident.id
+                && Objects.equals(name, accident.name)
+                && Objects.equals(text, accident.text)
+                && Objects.equals(address, accident.address)
+                && Objects.equals(type, accident.type)
+                && Objects.equals(rules, accident.rules);
     }
 
     @Override
@@ -109,7 +119,6 @@ public class Accident {
                 + ", text='" + text + '\''
                 + ", address='" + address + '\''
                 + ", type='" + type + '\''
-//                + ", rules='" + rules + '\''
                 + '}';
     }
 }

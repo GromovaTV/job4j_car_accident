@@ -10,6 +10,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -17,6 +18,7 @@ import java.util.Properties;
 @PropertySource("classpath:app.properties")
 @EnableTransactionManagement
 public class HbmConfig {
+
     @Bean
     public DataSource ds(@Value("${jdbc.driver}") String driver,
                          @Value("${jdbc.url}") String url,
@@ -37,7 +39,6 @@ public class HbmConfig {
         sessionFactory.setPackagesToScan("ru.job4j.accident.model");
         Properties cfg = new Properties();
         cfg.setProperty("hibernate.dialect", dialect);
-//        cfg.setProperty("hibernate.hbm2ddl.auto", "create");
         cfg.setProperty("hibernate.cache.use_second_level_cache", "false");
         sessionFactory.setHibernateProperties(cfg);
         return sessionFactory;

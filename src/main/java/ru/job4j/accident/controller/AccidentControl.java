@@ -10,14 +10,13 @@ import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
 import ru.job4j.accident.service.AccidentService;
+
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 public class AccidentControl {
+
     private final AccidentService service;
 
     public AccidentControl(AccidentService service) {

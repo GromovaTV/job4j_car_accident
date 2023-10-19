@@ -2,15 +2,14 @@ package ru.job4j.accident.repository;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-//@Repository
 public class AccidentJdbcTemplate {
     private final JdbcTemplate jdbc;
 
@@ -58,31 +57,31 @@ public class AccidentJdbcTemplate {
     };
 
     public Accident add(Accident accident) {
-        int generatedId = jdbc.update("insert into accident (name, text, address, accident_type_id) " +
-                        "values (?, ?, ?, ?)",
+        int generatedId = jdbc.update("insert into accident (name, text, address, accident_type_id) "
+                        + "values (?, ?, ?, ?)",
                 accident.getName(),
                 accident.getText(),
                 accident.getAddress(),
                 accident.getType().getId());
         accident.setId(generatedId);
         for (Rule rule : accident.getRules()) {
-            jdbc.update("insert into accident_rule (accident_id, rule_id) " +
-                            "values (?, ?)", generatedId, rule.getId());
+            jdbc.update("insert into accident_rule (accident_id, rule_id) "
+                    + "values (?, ?)", generatedId, rule.getId());
         }
         return accident;
     }
 
     public AccidentType add(AccidentType type) {
-        int generatedId = jdbc.update("insert into accident_type (name) " +
-                        "values (?)",
+        int generatedId = jdbc.update("insert into accident_type (name) "
+                        + "values (?)",
                 type.getName());
         type.setId(generatedId);
         return type;
     }
 
     public Rule add(Rule rule) {
-        int generatedId = jdbc.update("insert into rule (name) " +
-                        "values (?)",
+        int generatedId = jdbc.update("insert into rule (name) "
+                        + "values (?)",
                 rule.getName());
         rule.setId(generatedId);
         return rule;
@@ -103,8 +102,8 @@ public class AccidentJdbcTemplate {
     }
 
     public Accident update(Accident accident) {
-        jdbc.update("update accident set name = ?, text = ?, address = ?, accident_type_id = ? " +
-                        "where id = ?",
+        jdbc.update("update accident set name = ?, text = ?, address = ?, accident_type_id = ? "
+                        + "where id = ?",
                 accident.getName(),
                 accident.getText(),
                 accident.getAddress(),
@@ -113,8 +112,8 @@ public class AccidentJdbcTemplate {
         jdbc.update("delete from accident_rule where accident_id = ?", accident.getId());
         if (accident.getRules() != null) {
             for (Rule rule : accident.getRules()) {
-                jdbc.update("insert into accident_rule (accident_id, rule_id) " +
-                        "values (?, ?)", accident.getId(), rule.getId());
+                jdbc.update("insert into accident_rule (accident_id, rule_id) "
+                        + "values (?, ?)", accident.getId(), rule.getId());
             }
         }
         return accident;
@@ -146,12 +145,12 @@ public class AccidentJdbcTemplate {
 
     public List<Accident> getAll() {
         List<Accident> res = jdbc.query(
-                "select a.id as aId, a.name as aName, a.text as aText, a.address as aAddress, " +
-                        "at.name as tName, at.id as tId, r.id as rId, r.name as rName\n" +
-                        "from accident a \n" +
-                        "JOIN accident_type at ON a.accident_type_id = at.id \n" +
-                        "LEFT JOIN accident_rule ar ON a.id = ar.accident_id \n" +
-                        "LEFT JOIN rule r ON ar.rule_id = r.id\n",
+                "select a.id as aId, a.name as aName, a.text as aText, a.address as aAddress, "
+                        + "at.name as tName, at.id as tId, r.id as rId, r.name as rName\n"
+                        + "from accident a \n"
+                        + "JOIN accident_type at ON a.accident_type_id = at.id \n"
+                        + "LEFT JOIN accident_rule ar ON a.id = ar.accident_id \n"
+                        + "LEFT JOIN rule r ON ar.rule_id = r.id\n",
                 accidentRowMapper);
         return res;
     }
@@ -166,13 +165,13 @@ public class AccidentJdbcTemplate {
 
     public Accident get(int id) {
         Accident res = jdbc.queryForObject(
-                "select a.id as aId, a.name as aName, a.text as aText, a.address as aAddress, " +
-                        "at.name as tName, at.id as tId, r.id as rId, r.name as rName " +
-                        "from accident a " +
-                        "JOIN accident_type at ON a.accident_type_id = at.id " +
-                        "LEFT JOIN accident_rule ar ON a.id = ar.accident_id " +
-                        "LEFT JOIN rule r ON ar.rule_id = r.id " +
-                        "where a.id = ?",
+                "select a.id as aId, a.name as aName, a.text as aText, a.address as aAddress, "
+                        + "at.name as tName, at.id as tId, r.id as rId, r.name as rName "
+                        + "from accident a "
+                        + "JOIN accident_type at ON a.accident_type_id = at.id "
+                        + "LEFT JOIN accident_rule ar ON a.id = ar.accident_id "
+                        + "LEFT JOIN rule r ON ar.rule_id = r.id "
+                        + "where a.id = ?",
                 accidentRowMapper, id);
 
         return res;

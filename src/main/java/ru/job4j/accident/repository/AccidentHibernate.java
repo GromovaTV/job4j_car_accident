@@ -8,11 +8,13 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
+
 import java.util.Collection;
 import java.util.function.Function;
 
 @Repository
 public class AccidentHibernate {
+
     private final SessionFactory sf;
 
     public AccidentHibernate(SessionFactory sf) {
@@ -79,9 +81,8 @@ public class AccidentHibernate {
     public Collection<Accident> getAll() {
         return execute(
                 session -> {
-                    final Query query = session.createQuery("select distinct a from accident a " +
-//                            "JOIN a.type " +
-                            "LEFT JOIN fetch a.rules", Accident.class);
+                    final Query query = session.createQuery("select distinct a from accident a "
+                            + "LEFT JOIN fetch a.rules", Accident.class);
                     return query.list();
                 }
         );
@@ -110,10 +111,10 @@ public class AccidentHibernate {
     public Accident get(int id) {
         return execute(
                 session -> {
-                    final Query query = session.createQuery("select distinct a from accident a " +
-                            "JOIN a.type at " +
-                            "LEFT JOIN a.rules " +
-                            "where a.id=:id");
+                    final Query query = session.createQuery("select distinct a from accident a "
+                            + "JOIN a.type at "
+                            + "LEFT JOIN a.rules "
+                            + "where a.id=:id");
                     query.setParameter("id", id);
                     Accident res = (Accident) query.uniqueResult();
                     return res;

@@ -6,16 +6,22 @@ import java.util.Objects;
 @Entity(name = "users")
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String password;
+
     @Column(unique = true)
     private String username;
+
     @ManyToOne
     @JoinColumn(name = "authority_id")
     private Authority authority;
+
     private boolean enabled;
+
     public int getId() {
         return id;
     }
@@ -58,8 +64,12 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
         return id == user.id;
     }

@@ -6,9 +6,11 @@ import java.util.Objects;
 @Entity(name = "rule")
 @Table(name = "rule")
 public class Rule {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
 
     public static Rule of(int id, String name) {
@@ -36,8 +38,12 @@ public class Rule {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Rule rule = (Rule) o;
         return id == rule.id;
     }

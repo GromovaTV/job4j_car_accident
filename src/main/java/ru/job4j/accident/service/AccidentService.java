@@ -5,6 +5,7 @@ import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
 import ru.job4j.accident.repository.AccidentHibernate;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Collection;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class AccidentService {
+
     private AccidentHibernate template;
 
     public AccidentService(AccidentHibernate template) {

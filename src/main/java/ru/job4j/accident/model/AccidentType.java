@@ -6,9 +6,11 @@ import java.util.Objects;
 @Entity(name = "type")
 @Table(name = "accident_type")
 public class AccidentType {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
 
     public static AccidentType of(int id, String name) {
@@ -36,8 +38,12 @@ public class AccidentType {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null|| getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         AccidentType that = (AccidentType) o;
         return id == that.id;
     }
@@ -49,7 +55,8 @@ public class AccidentType {
 
     @Override
     public String toString() {
-        return "AccidentType{" + "id=" + id
+        return "AccidentType{"
+                + "id=" + id
                 + ", name='" + name + '\''
                 + '}';
     }

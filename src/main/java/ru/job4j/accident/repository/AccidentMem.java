@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
@@ -11,9 +12,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class AccidentMem {
-    private static AtomicInteger ACCIDENT_ID = new AtomicInteger(0);
-    private static AtomicInteger TYPE_ID = new AtomicInteger(0);
-    private static AtomicInteger RULE_ID = new AtomicInteger(0);
+
+    private static AtomicInteger accidentId = new AtomicInteger(0);
+    private static AtomicInteger typeId = new AtomicInteger(0);
+    private static AtomicInteger ruleId = new AtomicInteger(0);
     private HashMap<Integer, Accident> accidents = new HashMap<>();
     private HashMap<Integer, AccidentType> types = new HashMap<>();
     private HashMap<Integer, Rule> rules = new HashMap<>();
@@ -35,21 +37,21 @@ public class AccidentMem {
 
     public void save(Accident accident) {
         if (accident.getId() == 0) {
-            accident.setId(ACCIDENT_ID.incrementAndGet());
+            accident.setId(accidentId.incrementAndGet());
         }
         accidents.put(accident.getId(), accident);
     }
 
     public void save(AccidentType type) {
         if (type.getId() == 0) {
-            type.setId(TYPE_ID.incrementAndGet());
+            type.setId(typeId.incrementAndGet());
         }
         types.put(type.getId(), type);
     }
 
     public void save(Rule rule) {
         if (rule.getId() == 0) {
-            rule.setId(RULE_ID.incrementAndGet());
+            rule.setId(ruleId.incrementAndGet());
         }
         rules.put(rule.getId(), rule);
     }
